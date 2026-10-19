@@ -1,0 +1,36 @@
+# Ambientes virtuais e cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env/
+
+# Bancos de dados e índices gerados na ingestão
+genresearch.db
+vetores.npy
+meta.json
+
+# Diretórios de resultados e dados de teste
+resultados/
+dados_teste/
+
+# Logs e arquivos de monitoramento
+*.log
+genresearch.log
+andamento.log
+graficos.log
+ambiente.txt
+ULTIMA_EXECUCAO.txt
+.vmstat.pid
+.iostat.pid
+
+# Arquivos de dados brutos (opcional, dependendo do tamanho)
+# Se o dataset for pequeno, você pode versionar. Se for muito grande:
+dataset/*.csv
+!dataset/reviews_0-250.csv  # Exceção caso queira manter um arquivo de amostra
+brutos.csv
+
+# IDEs e SO
+.vscode/
+.idea/
+.DS_Store
