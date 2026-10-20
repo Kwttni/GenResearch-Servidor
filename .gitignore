@@ -1,36 +1,59 @@
-# Ambientes virtuais e cache do Python
+# ==========================================
+# 1. AMBIENTE VIRTUAL E CACHE DO PYTHON
+# ==========================================
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
 venv/
-.env/
+.venv/
+env.bak/
+venv.bak/
 
-# Bancos de dados e índices gerados na ingestão
+# ==========================================
+# 2. DADOS DE TESTE, BANCOS E DATASETS PESADOS
+# (Exigência de artefatos e limites do GitHub)
+# ==========================================
+dados_teste/*.bin
+dataset/*.csv
+*.db
+*.sqlite3
+*.sqldb
 genresearch.db
-vetores.npy
-meta.json
 
-# Diretórios de resultados e dados de teste
-resultados/
-dados_teste/
-
-# Logs e arquivos de monitoramento
+# ==========================================
+# 3. LOGS, CACHE E SAÍDAS DE EXECUÇÃO
+# ==========================================
 *.log
 genresearch.log
-andamento.log
 graficos.log
-ambiente.txt
-ULTIMA_EXECUCAO.txt
-.vmstat.pid
-.iostat.pid
+andamento.log
+*.tmp
+*.swp
 
-# Arquivos de dados brutos (opcional, dependendo do tamanho)
-# Se o dataset for pequeno, você pode versionar. Se for muito grande:
-dataset/*.csv
-!dataset/reviews_0-250.csv  # Exceção caso queira manter um arquivo de amostra
-brutos.csv
+# ==========================================
+# 4. CREDENCIAIS E SEGREDO (Item 3 do Roteiro)
+# ==========================================
+.env
+.env.*
+*.pem
+*.key
+*.token
 
-# IDEs e SO
+# ==========================================
+# 5. CONFIGURAÇÕES DA IDE E DO SISTEMA OPERACIONAL
+# ==========================================
 .vscode/
 .idea/
 .DS_Store
+Thumbs.db
+
+# ==========================================
+# 6. EXCEÇÕES / MANTIDOS NO REPOSITÓRIO
+# ==========================================
+# Mantém a estrutura das pastas mesmo que estejam sem arquivos de dados pesados
+!dados_teste/.gitkeep
+!dataset/.gitkeep
+!resultados/.gitkeep
