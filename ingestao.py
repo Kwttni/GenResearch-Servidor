@@ -16,12 +16,12 @@ TAM_TRECHO = 500
 SOBREPOS = 60
 
 
-def ler_csv(csv, limite=None):
+def ler_csv(caminho_csv, limite=  None):
     """
     Lê do CSV da Sephora as colunas: brand_name, product_name, review_title e review_text.
     """
 
-    caminho = Path(csv)
+    caminho = Path(caminho_csv)
 
     if not caminho.exists():
         raise FileNotFoundError(f"Arquivo CSV não encontrado: {caminho}")
@@ -80,12 +80,11 @@ def fragmentar_texto(documentos):
     return trechos
 
 
-def preparar_dados(csv=CSV_SEPHORA, limite=None, usar_ollama=False):
+def preparar_dados(caminho_csv=CSV_SEPHORA, limite=None, usar_ollama=False):
     """
     Cria os arquivos que o servidor usa para recuperar os trechos a partir do CSV.
     """
-
-    docs = ler_csv(csv, limite)
+    docs = ler_csv(caminho_csv, limite)
     trechos = fragmentar_texto(docs)
 
     if not trechos:
@@ -146,8 +145,7 @@ def main():
     analisador.add_argument("--ollama", action="store_true", help="Usar Ollama para gerar embeddings")
     args = analisador.parse_args()
 
-    preparar_dados(argumentos.csv, args.limite, args.ollama)
-
+    preparar_dados(args.csv, args.limite, args.ollama)
 
 if __name__ == "__main__":
     main()

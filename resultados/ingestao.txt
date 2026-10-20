@@ -1,0 +1,5 @@
+Documentos: 5000
+Trechos: 6062
+Banco: genresearch.db
+Índice: vetores.npy
+Metadados: meta.json

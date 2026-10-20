@@ -8,8 +8,8 @@ import threading
 import time
 import numpy as np
 from config import DIM, ARQ_DB, ARQ_IDX, ARQ_META, salva_no_log
-from vetores import vet_consulta, normaliza
-from metricas import Medicao, resumo
+from vetores import vetor_consulta, normalizar_texto
+from metricas import Medicao, gera_resumo
 
 PRODUTOS_TESTE = ["moisturizer", "foundation", "lipstick", "sunscreen", "serum", "mascara", "cleanser",
                   "eye cream", "perfume", "primer", "blush", "shampoo"]
@@ -277,7 +277,7 @@ class Servidor:
             return [], 0, 0, "nenhum"
         if self.indice is not None:
 
-            vetor_q = vet_consulta(consulta, self.metadados)
+            vetor_q = vetor_consulta(consulta, self.metadados)
             similaridades = self.indice @ vetor_q
             k_elementos = min(self.topk, len(similaridades))
             ids = np.argpartition(-similaridades, k_elementos - 1)[:k_elementos]
@@ -289,7 +289,7 @@ class Servidor:
             metodo = "vetorial"
 
         else:
-            termo = max(normaliza(consulta).split() or [""], key=len)
+            termo = max(normalizar_texto(consulta).split() or [""], key=len)
             textos = [r[0] for r in conn.execute("SELECT texto FROM chunks WHERE texto LIKE ? LIMIT ?",
                                                  (f"%{termo}%", self.topk)).fetchall()]
             metodo = "lexical"
@@ -349,7 +349,7 @@ class Servidor:
 
         tempo_inicial = time.perf_counter()
         tempo_espera = tempo_inicial - req["t_enq"]
-        chave_busca = normaliza(req["consulta"])
+        chave_busca = normalizar_texto(req["consulta"])
 
         registro_resp = {
             "id": req["id"], "prod": req["prod"], "ordem": req["ordem"],
@@ -530,11 +530,13 @@ class Servidor:
             "tokens_medio": float(np.mean([r["tokens"] for r in erros])) if erros else 0.0,
         }
 
-        res_final.update(resumo("espera", [r["espera"] for r in registros]))
-        res_final.update(resumo("recuperacao", [r["rec"] for r in erros]))
-        res_final.update(resumo("resp", [r["resp"] for r in erros]))
-        res_final.update(resumo("servico", [r["servico"] for r in registros]))
-        res_final.update(resumo("latencia", [r["espera"] + r["servico"] for r in registros]))
+        res_final.update(gera_resumo("espera", [r["espera"] for r in registros]))
+        res_final.update(gera_resumo("recuperacao", [r["rec"] for r in erros]))
+        res_final.update(gera_resumo("resp", [r["resp"] for r in erros]))
+        res_final.update(gera_resumo("servico", [r["servico"] for r in registros]))
+        res_final.update(gera_resumo("latencia", [r["espera"] + r["servico"] for r in registros]))
         res_final.update(metricas_so)
+
+        return res_final
 
         return res_final

@@ -28,15 +28,15 @@ def coletar_ambiente(pasta_saida = PASTA_RESULTADOS):
     Cria o resumo do ambiente e grava no arquivo "ambiente.txt".
     """
 
-    pasta = Path(pasta = pasta_saida)
+    pasta = Path(pasta_saida)
     pasta.mkdir(parents=True, exist_ok=True)
 
     informacoes = [
         f"Data da coleta: {datetime.datetime.now().isoformat(timespec='seconds')}",
         f"Sistema operacional: {platform.platform()}",
         f"Versão do Python: {platform.python_version()}",
-        f"Processador: {platform.processor() or 'Não identificado'}",
         f"Quantidade de CPUs lógicas: {os.cpu_count() or 'Não identificada'}",
+        "", "Processador (lscpu):", saida_comando(["lscpu"]),
         "", "Memória (free -h):", saida_comando(["free", "-h"]),
         "", "Kernel (uname -a):", saida_comando(["uname", "-a"]),
         "", "Disco (df -h .):", saida_comando(["df", "-h", "."]),

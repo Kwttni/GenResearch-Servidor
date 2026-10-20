@@ -1,0 +1,8 @@
+{
+  "modo": "simulado",
+  "dim": 1024,
+  "documentos": 5000,
+  "trechos": 6062,
+  "tamanho_trecho": 500,
+  "sobreposicao": 60
+}
