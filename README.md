@@ -115,6 +115,10 @@ Utiliza os dados de `brutos.csv` para gerar gráficos sobre latência, vazão, u
 - **C5:** Avalia o comportamento do sistema sob alta pressão de memória, observando paginação, uso de swap e *Page Faults*.
 - **C6 e Parte D:** Investigam situações como limites de memória, saturação de filas e condições de corrida causadas pela ausência de mecanismos de sincronização.
 
+## Vídeo
+
+https://drive.google.com/drive/folders/1C2aMurAbpsGRrtznucIzDwSFNfdL3acZ?usp=sharing
+
 ## Autoria
 
 Desenvolvido por **Mariana Silva Costa** para fins acadêmicos.
